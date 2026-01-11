@@ -76,7 +76,7 @@ const getStatusLabel = (status) => {
 <template>
   <div class="dashboard-container">
     <nav class="navbar navbar-dark bg-primary mb-4">
-      <div class="container-fluid">
+      <div class="container-fluid pb-1">
         <span class="navbar-brand">📚 My Library</span>
         <div>
           <span class="text-white me-3">Welcome, {{ user?.username }}</span>
@@ -99,7 +99,7 @@ const getStatusLabel = (status) => {
 
       <div class="row">
         <div v-for="item in myLibrary" :key="item.bookId" class="col-md-3 mb-4">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100 shadow-sm p-1">
             <div class="card-body">
               <h5>{{ item.book?.title }}</h5>
               <small class="text-muted">by {{ item.book?.author }}</small>

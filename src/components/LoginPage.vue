@@ -47,16 +47,16 @@ const handleSubmit = async () => {
 
 <template>
   <div class="login-container">
-    <div class="row justify-content-center">
-      <div class="col-md-6 col-lg-4">
+    <div class="row justify-content-center w-100">
+      <div class="col-md-6 col-lg-4 col-xl-3">
         <div class="card shadow-sm">
           <div class="card-body p-4">
             <h2 class="card-title text-center mb-4">Login</h2>
             
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="handleSubmit" class="text-center">
               <!-- Username Input -->
               <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
+                <label for="username" class="form-label pe-2">Username</label>
                 <input
                   type="username"
                   class="form-control"
@@ -70,7 +70,7 @@ const handleSubmit = async () => {
 
               <!-- Password Input -->
               <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label pe-2">Password</label>
                 <input
                   type="password"
                   class="form-control"

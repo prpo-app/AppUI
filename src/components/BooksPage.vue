@@ -79,7 +79,7 @@ const handleLogout = () => {
 <template>
   <div class="dashboard-container">
     <nav class="navbar navbar-dark bg-primary mb-4">
-      <div class="container-fluid">
+      <div class="container-fluid pb-1">
         <span class="navbar-brand">📚 BookWorm 📚</span>
         <div>
           <button @click="goToLibrary" class="btn btn-outline-light btn-sm me-2">
@@ -119,7 +119,7 @@ const handleLogout = () => {
 
       <div class="row">
         <div v-for="book in availableBooks" :key="book.id" class="col-md-3 mb-4">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100 shadow-sm p-1">
             <div class="card-body">
               <h5>{{ book.title }}</h5>
               <small class="text-muted">by {{ book.author }}</small>

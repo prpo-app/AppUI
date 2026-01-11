@@ -59,18 +59,6 @@ router.beforeEach((to, from, next) => {
   if (to.meta.redirectIfAuth && isAuthenticated) {
     next({ name: 'Books' });
   }
-
-  // Admin-only route
-  if (to.name === 'Admin') { 
-    if (!isAuthenticated) { 
-      return next({ name: 'Login' }); 
-    } 
-    if (!user || user.username !== 'admin') { 
-      alert('Access denied. Admins only.'); 
-      return next({ name: 'Books' }); 
-    } 
-  }
-
   else {
     next();
   }

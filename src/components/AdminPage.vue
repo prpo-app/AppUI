@@ -75,7 +75,7 @@ const handleLogout = () => {
   <div class="dashboard-container">
     <!-- Navbar -->
     <nav class="navbar navbar-dark bg-danger mb-4">
-      <div class="container-fluid">
+      <div class="container-fluid pb-1">
         <span class="navbar-brand">🛠 Admin</span>
         <div>
           <button @click="handleLogout" class="btn btn-outline-light btn-sm">Logout</button>
@@ -89,7 +89,7 @@ const handleLogout = () => {
       <div v-if="success" class="alert alert-success">{{ success }}</div>
 
       <!-- Add Book Form -->
-      <div class="card mb-4 shadow-sm">
+      <div class="card mb-4 shadow-sm p-1">
         <div class="card-body">
           <h5 class="mb-3">Add New Book</h5>
 
@@ -128,7 +128,7 @@ const handleLogout = () => {
 
       <div class="row">
         <div v-for="book in books" :key="book.id" class="col-md-3 mb-4">
-          <div class="card h-100 shadow-sm">
+          <div class="card h-100 shadow-sm p-1">
             <div class="card-body">
               <h5>{{ book.title }}</h5>
               <small class="text-muted">by {{ book.author }}</small>
