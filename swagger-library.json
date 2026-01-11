@@ -1,0 +1,173 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "LibraryService API",
+    "version": "v1"
+  },
+  "paths": {
+    "/library": {
+      "get": {
+        "tags": [
+          "Library"
+        ],
+        "summary": "Returns a list of books in the user's library.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Starting index (default 0).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of items returned (default 5).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Optional book status filter.",
+            "schema": {
+              "$ref": "#/components/schemas/BookStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the user's library."
+          },
+          "400": {
+            "description": "Invalid parameters."
+          },
+          "401": {
+            "description": "User is not authenticated."
+          },
+          "403": {
+            "description": "Access denied."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Library"
+        ],
+        "summary": "Adds a book to the user's library",
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "query",
+            "description": "book identificator",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "book status (read, want to read, currently reading)",
+            "schema": {
+              "$ref": "#/components/schemas/BookStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Book added to library."
+          },
+          "409": {
+            "description": "Book is already in the library."
+          },
+          "400": {
+            "description": "Invalid parameters."
+          },
+          "401": {
+            "description": "User is not authenticated."
+          },
+          "403": {
+            "description": "Access denied."
+          },
+          "404": {
+            "description": "Book doesn't exist."
+          },
+          "503": {
+            "description": "BookService is unavailable."
+          }
+        }
+      }
+    },
+    "/library/{bookId}": {
+      "delete": {
+        "tags": [
+          "Library"
+        ],
+        "summary": "Removes a book from the user's library.",
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "Book removed from library."
+          },
+          "401": {
+            "description": "User not authenticated."
+          },
+          "403": {
+            "description": "Access denied."
+          },
+          "404": {
+            "description": "Book not found in library."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BookStatus": {
+        "enum": [
+          "WantToRead",
+          "CurrentlyReading",
+          "Read"
+        ],
+        "type": "string"
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Vnesi JWT token v obliki: Bearer {tvoj_token}",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}

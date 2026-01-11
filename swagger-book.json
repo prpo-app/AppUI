@@ -1,0 +1,214 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "BookService",
+    "version": "1.0"
+  },
+  "paths": {
+    "/book/all": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Returns all books, testing purposes.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/book/{id}": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Returns a book with id \"id\".",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of the book",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book exists."
+          },
+          "404": {
+            "description": "Book with given id doesn't exist."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Removes the book with id \"id\" from the list. Admin user only.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of removed book.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "Book deleted."
+          },
+          "404": {
+            "description": "Book with given id doesn't exist."
+          },
+          "403": {
+            "description": "Access denied."
+          }
+        }
+      }
+    },
+    "/book": {
+      "get": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Returns list of books, starts at \"index\", default: 0 and returns \"limit\" books, default: 5.",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "starting index",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "maximum number of books returned",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 5
+            }
+          },
+          {
+            "name": "author",
+            "in": "query",
+            "description": "Optional filter: returns only books by this author.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "genre",
+            "in": "query",
+            "description": "Optional filter: returns only books of this genre.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of books."
+          },
+          "400": {
+            "description": "Invalid pagination parameters."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Books"
+        ],
+        "summary": "Creates a new book. Admin user only.",
+        "requestBody": {
+          "description": "Book data (title, author, genre).",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBook"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBook"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBook"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Book created."
+          },
+          "400": {
+            "description": "Missing parameters."
+          },
+          "403": {
+            "description": "Access denied."
+          },
+          "409": {
+            "description": "Book already exists."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateBook": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "author": {
+            "type": "string",
+            "nullable": true
+          },
+          "genre": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Vnesi JWT token v obliki: Bearer {tvoj_token}",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}
